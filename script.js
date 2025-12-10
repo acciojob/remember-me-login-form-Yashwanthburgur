@@ -2,7 +2,6 @@
 window.addEventListener('load', function() {
     const savedUsername = localStorage.getItem('savedUsername');
     const savedPassword = localStorage.getItem('savedPassword');
-    
     // If credentials exist, show the existing button
     if (savedUsername && savedPassword) {
         document.getElementById('existing').style.display = 'inline-block';
