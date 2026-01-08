@@ -4,16 +4,10 @@ const passwordInput = document.getElementById("password");
 const checkbox = document.getElementById("checkbox");
 const existingBtn = document.getElementById("existing");
 
-function updateUI() {
-    if (localStorage.getItem("username")) {
-        existingBtn.style.display = "block";
-    } else {
-        existingBtn.style.display = "none";
-    }
+// Check persistence on page load
+if (localStorage.getItem("username") && localStorage.getItem("password")) {
+    existingBtn.style.display = "block";
 }
-
-// Check storage when page loads
-updateUI();
 
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -22,15 +16,20 @@ loginForm.addEventListener("submit", (e) => {
     const password = passwordInput.value;
 
     if (checkbox.checked) {
+        // Save data
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
+        // Show button immediately
+        existingBtn.style.display = "block";
     } else {
+        // Clear data
         localStorage.removeItem("username");
         localStorage.removeItem("password");
+        // Hide button immediately
+        existingBtn.style.display = "none";
     }
 
-    // Update UI BEFORE showing alert so the test sees the change immediately
-    updateUI();
+    // Alert triggered AFTER all storage/UI logic is done
     alert("Logged in as " + username);
 });
 
